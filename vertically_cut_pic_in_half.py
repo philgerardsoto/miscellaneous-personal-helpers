@@ -1,28 +1,15 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[2]:
-
-
 from PIL import Image
 import os
-
-
-# In[4]:
-
+from natsort import natsorted
 
 # Directory containing the JPG files
-directory = '/Users/macbookair/Documents/tita_josie'
-
-
-# In[9]:
-
+directory = os.getcwd()
 
 # Initialize a counter for the filenames
 counter = 1
 
 # Loop through all the files in the directory
-for filename in sorted(os.listdir(directory)):
+for filename in natsorted(os.listdir(directory)):
     if filename.endswith('.jpg'):
         img_path = os.path.join(directory, filename)
         with Image.open(img_path) as img:
@@ -39,34 +26,3 @@ for filename in sorted(os.listdir(directory)):
             counter += 1
             right_half.save(os.path.join(directory, f'{counter}.jpg'))
             counter += 1
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
