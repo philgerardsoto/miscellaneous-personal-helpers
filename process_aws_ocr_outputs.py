@@ -1,22 +1,6 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[8]:
-
-
 import os
 import re
-
-
-# In[9]:
-
-
-# specify the directory you want to use
-path = '/Users/macbookair/Documents/tita_josie/ocrd_v2'
-
-
-# In[14]:
-
+from natsort import natsorted
 
 # Custom sorting key that extracts numbers and converts them to integers
 def numeric_sort_key(name):
@@ -29,42 +13,22 @@ def numeric_sort_key(name):
         return int(match.group())
     return float('inf')  # Assign a high value to non-numeric names
 
-# Sort the folder names using the custom key
-for foldername in sorted(os.listdir(path), key=numeric_sort_key):
-    # print(foldername)
+path = os.getcwd()
+
+# Path to the output file
+output_file_path = os.path.join(path, 'combined_output.txt')
+
+# Sort the folder names using natsorted with the custom key
+for foldername in natsorted(os.listdir(path), key=numeric_sort_key):
     # Construct the path to the rawText.txt file within the folder
     text_file_path = os.path.join(path, foldername, 'rawText.txt')
-    # Open the rawText.txt file and do something with it
+    # Open the rawText.txt file and append its contents to the output file
     try:
         with open(text_file_path, 'r') as file:
-            # For example, read the contents of the file
+            # Read the contents of the file
             contents = file.read()
-            # Do something with the contents
-            print(contents)
+            # Append the contents to the output file
+            with open(output_file_path, 'a') as output_file:
+                output_file.write(contents + '\n')  # Add a newline for separation
     except:
         pass
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
